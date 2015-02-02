@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Kanboard Settings</title></head>
+    <body>
+
+        <h3>Endpoints:</h3>
+
+        <table id="api_table">
+            <tr><th>Url</th><th>Token</th></tr>
+        </table>
+
+        <br>
+        <table>
+            <tr>
+                <td>JsonRpc-Url:</td>
+                <td><input type="text" id="url"></td>
+                <td>http://example.com/kanboard/jsonrpc.php</td>
+            </tr>
+            <tr>
+                <td>Token:</td>
+                <td><input type="text" id="token"></td>
+                <td>c294fe4d3fe46ecc8e8ea37b1d08324586fab4f84a117c9192d691d5939d</td>
+            </tr>
+            <tr>
+                <td><button id='add'>add</button></td>
+                <td><span id="reset">Reset all settings</span></td>
+                <td></td></tr>
+        </table>
+
+        <div id="status"></div>
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script src="options.js"></script>
+    </body>
+</html>

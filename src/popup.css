@@ -1,0 +1,17 @@
+ul {
+    list-style: none;
+}
+ul li {
+    font-family: Georgia, serif, Times;
+    font-size: 18px;
+}
+ul li a {
+    display: block;
+    width: 300px;
+    height: 20px;
+    text-decoration: none;
+}
+ul li a:hover {
+    text-decoration: underline;
+    background-color: lightgrey;
+}
