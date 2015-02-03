@@ -1,21 +1,21 @@
 {
-    "manifest_version": 2,
-    "name": "Kanboard Desktop",
-    "description": "My little kanboard extension.",
-    "version": "1.0",
-    "browser_action": {
-        "default_icon": "icon_72.png",
-        "default_popup": "popup.html"
-    },
-    "permissions": [
-        "https://*/",
-        "http://*/",
-        "storage"
-    ],
-    "options_page": "options.html",
-    "icons": {
-        "16": "icon_72.png",
-        "48": "icon_72.png",
-        "128": "icon_72.png"
-    }
+  "manifest_version": 2,
+
+  "name": "Kanboard Desktop",
+  "description": "My little kanboard extension.",
+  "version": "0.0.1",
+
+  "browser_action": {
+    "default_icon": "icon_72.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "https://*/",
+	"http://*/",
+	"storage"
+  ],
+  "options_page": "options.html",
+  "icons": { "16": "icon_72.png",
+				"48": "icon_72.png",
+				"128": "icon_72.png" }
 }

@@ -1,57 +1,62 @@
 document.addEventListener('DOMContentLoaded', function () {
-    $(function () {
-
-        $('body').on('click', 'a', function () {
-            chrome.tabs.create({url: $(this).attr('href')});
-            return false;
-        });
-
-        var urls = [];
-        chrome.storage.sync.get('urls', function (items) {
-            items.urls.forEach(function (entry) {
-
-                var split = entry.split(';')
-
-                var user = 'jsonrpc';
-                var password = split[1];
-                var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": 1}';
-                var url = split[0].substring(0, split[0].length - 11);
-                var endpoint = split[0];
-
-                $("#projects").append('<br><li><i>' + url + '</i><ul data-url="' + url + '"></ul></li>');
-
-                $.ajax({
-                    url: endpoint,
-                    type: 'POST',
-                    dataType: 'json',
-                    crossDomain: true,
-                    data: request,
-                    beforeSend: function (xhr) {
-                        var auth = Base64.encode(user + ':' + password);
-                        xhr.setRequestHeader("Authorization", "Basic " + auth);
-                    },
-                    success: function (data) {
-                        var result = data.result;
-
-                        $.each(result, function (index, element) {
-
-
-                            var href = url + '?controller=board&action=show&project_id=' + element.id;
-
-                            $("ul").find("[data-url='" + url + "']").append('<li><a href="' + href + '">' + element.name + '</a></li>');
-                        });
-
-                    },
-                    error: function (data) {
-                        $("ul").find("[data-url='" + url + "']").append('<li>ERROR</li>');
-                    }
-                });
-            });
-        });
-        console.log('Settings Restored');
-
-
-
-    });
+	$(function() {
+		//enable a href links and open in a new tab
+		$('body').on('click', 'a', function(){
+			chrome.tabs.create({url: $(this).attr('href')});
+			return false;
+		});
+	  
+		//Test hover icon (did not work)
+		$( ".display" ).on( "mouseenter", function() {
+			$(this).addClass('fa fa-eye');
+			console.log('enter display');
+		});
+		$( ".display" ).on( "mouseleave", function() {
+			$(this).removeClass('fa fa-eye');
+			console.log('leave display');
+		});
+	
+		//get apis from local storage settings		
+		chrome.storage.sync.get( 'endpoints', function(items) {
+			items.endpoints.forEach(function(endpoint) {				
+				
+				//prepare api call
+				var user = 'jsonrpc';
+				var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": 1}';
+				var url = endpoint.url.substring(0, endpoint.url.length - 11);
+		
+				//add new api endpoint to list
+				$("#projects").append('<br><li>' + endpoint.name + '<ul data-url="' + url + '"></ul></li>');
+				
+				//make api call
+				$.ajax({
+					url: endpoint.url,
+					type: 'POST',
+					dataType: 'json',
+					crossDomain: true, 
+					data: request,
+					beforeSend: function(xhr){
+						var auth = Base64.encode(user + ':' + endpoint.token); 
+						xhr.setRequestHeader("Authorization", "Basic " + auth);
+					},
+					success: function(data) {
+						var result = data.result;
+						//loop to result (projectlist)
+						$.each(result, function(index, element) {		
+				
+							var display = url + '?controller=board&action=show&project_id=' + element.id ;
+							var add = url + '?controller=task&action=create&project_id=' + element.id ;
+							var row = '<li><a class="display" href="' + display + '">' + element.name + '</a> <a class="add fa fa-plus" href="' + add + '"> add Task </a></li>';
+						
+							$("ul").find("[data-url='" + url + "']").append(row);
+						});			
+					},
+					error: function(data){
+						$("ul").find("[data-url='" + url + "']").append('<li>Error due API call.</li>');
+					}
+				});
+			});
+		});
+	});  
 });
 
