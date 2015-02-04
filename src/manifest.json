@@ -1,20 +1,24 @@
 {
   "manifest_version": 2,
 
-  "name": "Kanboard Desktop",
-  "description": "My little kanboard extension.",
+  "name": "__MSG_chrome_extension_name__",
+  "description": "__MSG_chrome_extension_description__",
   "version": "0.0.1",
-
+  "default_locale": "en",
   "browser_action": {
     "default_icon": "icon_72.png",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "__MSG_browser_action_title__"
   },
   "permissions": [
     "https://*/",
 	"http://*/",
 	"storage"
   ],
-  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "icons": { "16": "icon_72.png",
 				"48": "icon_72.png",
 				"128": "icon_72.png" }

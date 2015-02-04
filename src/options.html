@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Kanboard Settings</title>
+		<title class="_locale_settings">Kanboard Settings</title>
 		<link rel="stylesheet" href="options.css">
 	</head>
 	<body>
 
-		<h3>Endpoints:</h3>
+		<h3 class="_locale_endpoints">Endpoints:</h3>
 
 		<table id="api_table" class="simpletable">
 			<tr>
-				<th>Name</th>
+				<th class="_locale_name">Name</th>
 				<th>Url</th>
 				<th>Token</th>
 			</tr>
-		</table>	
+		</table>
 
 		<br>
-		
+
 		<table>
 			<tr>
-				<td>Name:</td>
+				<td class="_locale_name">Name:</td>
 				<td><input type="text" id="name"></td>
 				<td>Testpage</td>
 			</tr>
 			<tr>
-				<td>JsonRpc-Url:</td>
+				<td class="_locale_api_url">JsonRpc-Url:</td>
 				<td><input type="text" id="url"></td>
 				<td>http://litzbarski.de/todo_dev/jsonrpc.php</td>
 			</tr>
 			<tr>
-				<td>Token:</td>
+				<td class="_locale_token">Token:</td>
 				<td><input type="text" id="token"></td>
 				<td>09d2645659634f08456dd53fcd12bd0e2122873a6585560ea6d4a3410095</td>
 			</tr>
 			<tr>
-				<td><button id='add'>add</button></td>
-				<td><span id="reset">Reset all settings</span></td>
+				<td><button id='add' class="_locale_add">add</button></td>
+				<td><span id="reset" class="_locale_reset">Reset all settings</span></td>
 				<td></td>
 			</tr>
 		</table>
-
-		<div id="status"></div>
-
 
 		<script type="text/javascript" src="jquery.min.js"></script>
 		<script src="options.js"></script>

@@ -1,0 +1,47 @@
+{
+  "chrome_extension_name": {
+    "message": "Kanboard Quickmenu"
+  },
+	"chrome_extension_description": {
+	  "message": "My little kanboard extension."
+  },
+	"browser_action_title": {
+	  "message": "Kanboard Quickmenu"
+	},
+	"projects": {
+	  "message": "Projects"
+	},
+	"error_due_api_call": {
+	  "message": "Error due API call."
+	},
+	"add_task": {
+	  "message": "add Task"
+	},
+	"no_api_endpoint_found": {
+	  "message": "No Api Endpoints found."
+	},
+	"go_to_options": {
+	  "message": "Go to options."
+	},
+	"name": {
+	  "message": "Name"
+	},
+	"api_url": {
+	  "message": "Api-Url"
+	},
+	"token": {
+	  "message": "Token"
+	},
+	"settings": {
+	  "message": "Settings"
+	},
+	"reset": {
+	  "message": "Reset ALL settings"
+	},
+	"add": {
+	  "message": "add"
+	},
+	"endpoints": {
+	  "message": "Endpoints"
+	}
+}
