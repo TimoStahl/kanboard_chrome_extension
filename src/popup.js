@@ -9,42 +9,25 @@ document.addEventListener('DOMContentLoaded', function () {
 			return false;
 		});
 
-		//Test hover icon (did not work)
-		$( ".display" ).on( "mouseenter", function() {
-			$(this).addClass('fa fa-eye');
-			console.log('enter display');
-		});
-		$( ".display" ).on( "mouseleave", function() {
-			$(this).removeClass('fa fa-eye');
-			console.log('leave display');
-		});
+		$('body').on('click', '.endpoint', function(){
+		  var url = $(this).data('url');
+		  if($(this).find(".fa-plus-circle").length > 0) {
+		    //show
+        var icon =  $(this).find( '.fa-plus-circle' );
+        icon.removeClass('fa-plus-circle').addClass('fa-refresh').addClass('fa-spin');
 
-		//get apis from local storage settings
-		chrome.storage.sync.get( 'endpoints', function(items) {
-		  if(typeof items.endpoints === 'undefined'){
-		    //TODO change extension ID
-			  $("#projects").append('<li>' + chrome.i18n.getMessage("no_api_endpoint_found") + '<a href="chrome://extensions?options=dpijbbnoajflcejcdngjcbacedpchceg"> ' + chrome.i18n.getMessage("go_to_options") + ' </a></li>');
-			}else{
-
-  			items.endpoints.forEach(function(endpoint) {
-
-  				//prepare api call
-  				var user = 'jsonrpc';
+        	//prepare api call
   				var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": 1}';
-  				var url = endpoint.url.substring(0, endpoint.url.length - 11);
-
-  				//add new api endpoint to list
-  				$("#projects").append('<br><li>' + endpoint.name + '<ul data-url="' + url + '"></ul></li>');
-
-  				//make api call
+  				var urlapi = $(this).data('url') + 'jsonrpc.php';
+  				var auth = $(this).data('auth');
+        //make api call
   				$.ajax({
-  					url: endpoint.url,
+  					url: urlapi,
   					type: 'POST',
   					dataType: 'json',
   					crossDomain: true,
   					data: request,
   					beforeSend: function(xhr){
-  						var auth = Base64.encode(user + ':' + endpoint.token);
   						xhr.setRequestHeader("Authorization", "Basic " + auth);
   					},
   					success: function(data) {
@@ -54,15 +37,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
   							var display = url + '?controller=board&action=show&project_id=' + element.id ;
   							var add = url + '?controller=task&action=create&project_id=' + element.id ;
-  							var row = '<li><a class="display" href="' + display + '">' + element.name + '</a> <a class="add fa fa-plus" href="' + add + '"> ' + chrome.i18n.getMessage("add_task") + ' </a></li>';
-
-  							$("ul").find("[data-url='" + url + "']").append(row);
+  							var row = '<tr class="board" data-url="' + url + '"><td>-</td><td><a class="display" href="' + display + '">' + element.name + '</a></td><td><a class="add fa fa-plus" href="' + add + '"> ' + chrome.i18n.getMessage("add_task") + ' </a></td></tr>';
+  							$(row).insertAfter($("tr.endpoint[data-url='" + url + "']"));
   						});
+
+  						icon.removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-minus-circle');
   					},
   					error: function(data){
-  						$("ul").find("[data-url='" + url + "']").append('<li>' + chrome.i18n.getMessage("error_due_api_call") + '</li>');
+  						var error = '<tr class="error" data-url="' + url + '"><td colspan="3">' + chrome.i18n.getMessage("error_due_api_call") + '</td></tr>';
+  						$(error).insertAfter($("tr[data-url='" + url + "']"));
+  						icon.removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-minus-circle');
   					}
   				});
+
+      } else {
+        //hide
+        $(".board[data-url='" + url + "'").remove();
+        $(".error[data-url='" + url + "'").remove();
+        $(this).find( '.fa-minus-circle' ).removeClass('fa-minus-circle').addClass('fa-plus-circle');
+      }
+		});
+
+
+		//get apis from local storage settings
+		chrome.storage.sync.get( 'endpoints', function(items) {
+		  if(typeof items.endpoints === 'undefined'){
+			  $("#project_quicklinks").append('<tr class="nohover"><td colspan="3">' + chrome.i18n.getMessage("no_api_endpoint_found") + '<a href="chrome://extensions?options=akjbeplnnihghabpgcfmfhfmifjljneh"> ' + chrome.i18n.getMessage("go_to_options") + ' </a></td></tr>');
+			}else{
+
+  			items.endpoints.forEach(function(endpoint) {
+  				//add new api endpoint to list
+  				var user = 'jsonrpc';
+  				var auth = Base64.encode(user + ':' + endpoint.token);
+  				var url = endpoint.url.substring(0, endpoint.url.length - 11);
+  				$("#project_quicklinks").append('<tr class="endpoint" data-auth="' + auth + '" data-url="' + url + '"><td colspan="3"><i class="fa fa-plus-circle"></i> ' + endpoint.name +  '</td></tr>');
+
   			});
 			}
 		});

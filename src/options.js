@@ -23,18 +23,18 @@ function add_url() {
 					endpoints.push(api_new);
 				}
 				chrome.storage.sync.set({endpoints: endpoints}, function() {
-					addApiToTable(api_new);
+					restore_options();
 				});
 			});
 	}
 }
 
 function addApiToTable(endpoint) {
-	//var split = string.split(';')
-	$('#api_table').append('<tr><td>' + endpoint.name + '</td><td>' + endpoint.url + '</td><td>' + endpoint.token + '</td></tr>');
+	$('#api_table').append('<tr class="endpoint"><td>' + endpoint.name + '</td><td>' + endpoint.url + '</td><td>' + endpoint.token + '</td></tr>');
 }
 
 function restore_options() {
+  $(".endpoint").remove();
 	var endpoints = [];
 	chrome.storage.sync.get( 'endpoints', function(items) {
 		items.endpoints.forEach(function(entry) {
@@ -62,6 +62,7 @@ $( document ).ready( function() {
 	$('#reset').click( function() {
 		chrome.storage.sync.clear(function (){
 			console.log('All settings deleted');
+			restore_options();
 		});
 	});
 });

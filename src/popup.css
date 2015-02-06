@@ -1,20 +1,19 @@
- ul {
-    list-style: none;
- }
- ul li {
-	display: block;
-	width: 400px;	 
+table {
+	width: 400px;
     font-family: Georgia, serif, Times;
     font-size: 18px;
  }
- ul li a {     	 
+a {
     text-decoration: none;
+    color: black;
  }
-  ul li a.add {     	 
+a.add {
     /*text-decoration: underline;*/
 	font-size: 12px;
  }
- /*ul li a:hover.display {
-    text-decoration: underline;
+table tr.endpoint{
+  text-decoration: underline;
+}
+table tr:hover:not(.endpoint):not(.nohover){
     background-color: lightgrey;
- }*/
+}
