@@ -3,7 +3,7 @@
     "message": "Kanboard Schnellzugriff"
   },
 	"chrome_extension_description": {
-	  "message": "Meine kleine Kanboarderweiterung."
+	  "message": "Eine kleine Erweiterung, um schneller auf Kanboard Projekte zuzugreifen."
   },
 	"browser_action_title": {
 	  "message": "Kanboard Schnellzugriff"
@@ -43,5 +43,8 @@
 	},
 	"endpoints": {
 	  "message": "Endpunkte"
+	},
+        "github": {
+	  "message": "Sourcecode: https://github.com/BlueTeck/kanboard_chrome_extension"
 	}
 }
