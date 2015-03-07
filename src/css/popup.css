@@ -1,5 +1,5 @@
 table {
-	width: 400px;
+    width: 500px;
     font-family: Georgia, serif, Times;
     font-size: 18px;
  }
@@ -16,4 +16,9 @@ table tr.endpoint{
 }
 table tr:hover:not(.endpoint):not(.nohover){
     background-color: lightgrey;
+}
+.right {
+    position: fixed;
+    top: 5px;
+    right: 5px;
 }

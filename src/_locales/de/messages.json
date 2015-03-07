@@ -46,5 +46,22 @@
 	},
         "github": {
 	  "message": "Sourcecode: https://github.com/BlueTeck/kanboard_chrome_extension"
-	}
+	},
+        "overdue_tasks": {
+	  "message": "überfällige Aufgaben"
+	},
+        "format_date": {
+            "message": "$day$.$month$.$year$",
+            "placeholders": {
+                "day": {
+                    "content": "$1"
+                },
+                "month": {
+                    "content": "$2"
+                },
+                "year": {
+                    "content": "$3"
+                }
+            }
+        }
 }
