@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         $(error).insertAfter($("tr[data-url='" + url + "']"));
                         icon.removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-minus-circle');
                     }
-                });
-
+                });                
+                
             } else {
                 //hide
                 $(".board[data-url='" + url + "'").remove();
@@ -73,6 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#project_quicklinks").append('<tr class="endpoint" data-auth="' + auth + '" data-url="' + url + '"><td colspan="3"><i class="fa fa-plus-circle"></i> ' + endpoint.name + '</td></tr>');
 
                 });
+                
+                if( items.endpoints.length == 1){
+                    $( ".endpoint" ).trigger( "click" );
+                }
             }
         });
     });
