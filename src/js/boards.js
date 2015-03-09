@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    $(function () {
+    $(function () {        
 
         $('body').on('click', '.endpoint', function () {
             var url = $(this).data('url');
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 icon.removeClass('fa-plus-circle').addClass('fa-refresh').addClass('fa-spin');
 
                 //prepare api call
-                var request = '{"jsonrpc": "2.0", "method": "getOverdueTasks", "id": 1}';
+                var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": 1}';
                 var urlapi = $(this).data('url') + 'jsonrpc.php';
                 var auth = $(this).data('auth');
                 //make api call
@@ -24,25 +24,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     success: function (data) {
                         var result = data.result;
-                        //loop to result
+                        //loop to result (projectlist)
                         $.each(result, function (index, element) {
-                            var date = new Date(element.date_due*1000);
-                            var day = date.getDate();
-                            var month = date.getMonth() + 1;
-                            var year = date.getFullYear();
-                            
-                            var display_task = url + '?controller=task&action=show&project_id=' + element.project_id + '&task_id=' + element.id;
-                            var display_project = url + '?controller=board&action=show&project_id=' + element.project_id;
-                            
-                            var row = '<tr class="board" data-url="' + url + '"><td><i class="fa fa-table"></i> <a class="display tab" href="' + display_project + '">' + element.project_name + '</a><br><i class="fa fa-square-o"></i> <a class="display tab" href="' + display_task + '">' + element.title + '</a></td>' +
-                                      '<td><i class="fa fa-calendar"></i> ' + chrome.i18n.getMessage("format_date", [day, month, year]) + '<br><i class="fa fa-user"></i> ' + element.assignee_name + '</td></tr>';
+
+                            var display = url + '?controller=board&action=show&project_id=' + element.id;
+                            var add = url + '?controller=task&action=create&project_id=' + element.id;
+                            var row = '<tr class="board" data-url="' + url + '"><td></td><td><i class="fa fa-table"></i> <a class="display tab" href="' + display + '">' + element.name + '</a></td><td><a class="tab add fa fa-plus" href="' + add + '"> ' + chrome.i18n.getMessage("add_task") + ' </a></td></tr>';
                             $(row).insertAfter($("tr.endpoint[data-url='" + url + "']"));
                         });
 
                         icon.removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-minus-circle');
                     },
                     error: function (data) {
-                        var error = '<tr class="error" data-url="' + url + '"><td colspan="2">' + chrome.i18n.getMessage("error_due_api_call") + '</td></tr>';
+                        var error = '<tr class="error" data-url="' + url + '"><td colspan="3">' + chrome.i18n.getMessage("error_due_api_call") + '</td></tr>';
                         $(error).insertAfter($("tr[data-url='" + url + "']"));
                         icon.removeClass('fa-refresh').removeClass('fa-spin').addClass('fa-minus-circle');
                     }
@@ -56,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        $('body').loadEndpoints(2);
-        
+
+        $('body').loadEndpoints(3);
     });
 });
 
