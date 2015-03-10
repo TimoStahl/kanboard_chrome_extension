@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         $('body').loadEndpoints(3);
+        $('body').translate();
     });
 });
 

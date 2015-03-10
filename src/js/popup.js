@@ -1,5 +1,5 @@
 (function( $ ){
-   $.fn.baseFunction = function() {
+   $.fn.translate = function() {
       //languages in html
         $('._locale_projects').text(chrome.i18n.getMessage("projects"));
         $('._locale_overdue_tasks').text(chrome.i18n.getMessage("overdue_tasks"));
