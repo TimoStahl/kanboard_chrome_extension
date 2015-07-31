@@ -1,0 +1,12 @@
+<md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
+<h1 class="md-title">Overdue in {{project_name}}</h1>
+</md-toolbar>
+
+<div ng-hide="tasks.length > 0" class="info">
+    no overdue Tasks found in {{project_name}}
+</div>  
+
+<span ng-repeat="task in tasks" ng-include="'view/task_box.html'">
+  
+
+<a href="#/"><md-button>Back</md-button></a>

@@ -1,0 +1,28 @@
+<md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
+  <h1 class="md-title">{{project_name}}</h1>
+</md-toolbar>
+
+<div>
+  <md-content class="md-padding" md-swipe-left="nextColumn()" md-swipe-right="previousColumn()">
+    <md-tabs md-dynamic-height md-selected="selectedIndex">
+
+      <md-tab ng-repeat="column in columns" label="{{column.title}}">
+
+        <md-content class="md-padding">
+          <div ng-hide="column.tasks.length > 0" class="warning">
+            no tasks found in column "{{column.title}}"
+          </div>
+          <span ng-repeat="task in column.tasks" ng-include="'view/task_box.html'">
+
+          </span>
+        </md-content>
+
+      </md-tab>
+
+    </md-tabs>
+  </md-content>
+</div>
+
+<a href="#/">
+  <md-button>Back</md-button>
+</a>

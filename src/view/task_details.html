@@ -1,0 +1,10 @@
+<md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
+  <h1 class="md-title">{{task.title}}</h1>
+  </md-toolbar>
+  <p>ID: {{task.id}}</p>
+  
+  <p>Description:</p>
+  <blockquote>{{task.description}}</blockquote>
+
+
+<a href="#/{{api_id}}/board/show/{{task.project_id}}"><md-button>Back</md-button></a>

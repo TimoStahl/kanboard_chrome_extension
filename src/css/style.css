@@ -1,0 +1,69 @@
+body {
+    min-width:400px;
+}
+
+.task {
+    border-style: solid;
+    border-width: 1px;
+    border-color: grey;
+    margin: 5px;
+    padding: 5px;
+}
+
+.task_id {
+    font-weight: bold;
+}
+
+ng-md-icon {
+    fill: currentColor;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-repeat: no-repeat no-repeat;
+}
+
+md-chips .md-chips {
+    box-shadow: 0 0;
+}
+
+.info,
+.success,
+.warning,
+.error {
+    border: 1px solid;
+    margin: 10px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    border-radius: 5px;
+}
+
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../img/info.png');
+}
+
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image: url('../img/success.png');
+}
+
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../img/warning.png');
+}
+
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../img/error.png');
+}
+
+.md-button {
+    margin: 2px;
+}
