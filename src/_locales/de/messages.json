@@ -8,48 +8,6 @@
 	"browser_action_title": {
 	  "message": "Kanboard Schnellzugriff"
 	},
-	"projects": {
-	  "message": "Projekte"
-	},
-	"error_due_api_call": {
-	  "message": "Fehler beim API-Aufruf."
-	},
-	"add_task": {
-	  "message": "Aufgabe hinzufügen"
-	},
-	"no_api_endpoint_found": {
-	  "message": "Keine API-Endpunkte gefunden."
-	},
-	"go_to_options": {
-	  "message": "Einstellungen öffnen."
-	},
-	"name": {
-	  "message": "Name"
-	},
-	"api_url": {
-	  "message": "Api-Url"
-	},
-	"token": {
-	  "message": "Token"
-	},
-	"settings": {
-	  "message": "Einstellungen"
-	},
-	"reset": {
-	  "message": "ALLE Einstellungen löschen"
-	},
-	"add": {
-	  "message": "hinzufügen"
-	},
-	"endpoints": {
-	  "message": "Endpunkte"
-	},
-        "github": {
-	  "message": "Sourcecode: https://github.com/BlueTeck/kanboard_chrome_extension"
-	},
-        "overdue_tasks": {
-	  "message": "überfällige Aufgaben"
-	},
         "format_date": {
             "message": "$day$.$month$.$year$",
             "placeholders": {

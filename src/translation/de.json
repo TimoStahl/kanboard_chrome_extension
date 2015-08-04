@@ -1,0 +1,20 @@
+{
+    "projects": "Projekte",
+    "search": "Suche",
+    "projectlist": "Projektliste",
+    "settings": "Einstellungen",
+    "endpoints": "Endpunkte",
+    "add": "hinzufügen",
+    "name": "Name",
+    "url": "URL",
+    "token": "Token",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "no_task_in_column": "Keine Aufgaben in Spalte:",
+    "back": "zurück",
+    "cant_access_api": "kein Zugriff",
+    "add endpoint": "Endpunkt hinzufügen",
+    "edit endpoint": "Endpunkt bearbeiten",
+    "no_overdue_in": "Keine überfälligen Aufgaben in",
+    "overdue_in": "Überfällige Aufgaben in"
+}

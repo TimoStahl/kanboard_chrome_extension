@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_chrome_extension_name__",
     "description": "__MSG_chrome_extension_description__",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "author": "Timo Litzbarski",
     "default_locale": "en",
     "browser_action": {

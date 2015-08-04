@@ -1,25 +1,26 @@
 <md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
   <h1 class="md-title">
-    <span ng-hide="endpoint.id >= 0">add</span> 
-    Endpoint</h1>
+    <span ng-hide="!edit">{{ 'edit endpoint' | translate }}</span>
+    <span ng-hide="edit">{{ 'add endpoint' | translate }}</span> 
+  </h1>
 </md-toolbar>
 
 <form name="epform">
 <md-input-container flex>
-  <label>Name</label>
+  <label>{{ 'name' | translate }}</label>
   <input ng-model="endpoint.name" required>
 </md-input-container>
 <md-input-container flex>
-  <label>URL</label>
+  <label>{{ 'url' | translate }}</label>
   <input type="url" ng-model="endpoint.url" required>
 </md-input-container>
 <md-input-container flex>
-  <label>Token</label>
+  <label>{{ 'token' | translate }}</label>
   <input ng-model="endpoint.token" required>
 </md-input-container>
 
 
-<md-button ng-click="$navigation.settings()">Cancel</md-button>
-<md-button ng-disabled="epform.$invalid" class="md-raised" ng-click="save()">Save</md-button>
+<md-button ng-click="$navigation.settings()">{{ 'cancel' | translate }}</md-button>
+<md-button ng-disabled="epform.$invalid" class="md-raised" ng-click="save()">{{ 'save' | translate }}</md-button>
 
 </form>

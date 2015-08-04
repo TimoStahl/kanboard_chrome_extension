@@ -10,7 +10,7 @@
 
         <md-content class="md-padding">
           <div ng-hide="column.tasks.length > 0" class="warning">
-            no tasks found in column "{{column.title}}"
+            {{ 'no_task_in_column' | translate }} "{{column.title}}"
           </div>
           <span ng-repeat="task in column.tasks" ng-include="'view/task_box.html'">
 
@@ -24,5 +24,5 @@
 </div>
 
 <a href="#/">
-  <md-button>Back</md-button>
+  <md-button>{{ 'back' | translate }}</md-button>
 </a>

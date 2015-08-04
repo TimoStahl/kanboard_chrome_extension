@@ -1,4 +1,4 @@
-angular.module('project', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'base64'])
+angular.module('project', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'base64', 'pascalprecht.translate'])
 
 .config( [
     '$compileProvider',
@@ -8,6 +8,22 @@ angular.module('project', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'base64'])
         // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
     }
 ])
+.config(function($translateProvider) {
+   
+    $translateProvider.registerAvailableLanguageKeys(['en','de'], {
+        'en_US': 'en',
+        'en_UK': 'en',
+        'de_DE': 'de',
+        'de_CH': 'de',
+        'de_AT': 'de'
+    })
+    .determinePreferredLanguage()
+    .fallbackLanguage('en')
+    .useStaticFilesLoader({
+        prefix: 'translation/',
+        suffix: '.json'
+    });
+})
 .config(function($routeProvider) {
   $routeProvider
     .when('/', {
@@ -324,7 +340,12 @@ angular.module('project', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'base64'])
       var api_id = parseInt($routeParams.api_id);
       items = dataFactory.getEndpoints();
       $scope.endpoint = items[api_id];
+      $scope.edit = true;
+    } else {
+      $scope.edit = false;
     }
+
+    
 
     $scope.save = function() {
       if ($scope.endpoint.id >= 0) {

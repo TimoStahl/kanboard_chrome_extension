@@ -1,13 +1,13 @@
 <md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
-  <h1 class="md-title">Settings</h1>
+  <h1 class="md-title">{{ 'settings' | translate }}</h1>
   <span flex></span>
   <md-button class="" ng-click="$navigation.settings_endpoint(-1)">
-      <ng-md-icon icon="add_circle"></ng-md-icon> add
+      <ng-md-icon icon="add_circle"></ng-md-icon> {{ 'add' | translate }}
     </md-button>
 </md-toolbar>
 
 <md-list>
-  <md-subheader class="md-no-sticky">Endpoints</md-subheader>
+  <md-subheader class="md-no-sticky">{{ 'endpoints' | translate }}</md-subheader>
 
 
   <md-list-item class="md-3-line" ng-repeat="endpoint in endpoints">
@@ -26,4 +26,11 @@
 
 
   <md-divider></md-divider>
+  <md-list-item class="md-3-line">
+    <ng-md-icon icon="github-circle" class="md-avatar"></ng-md-icon>
+    <div class="md-list-item-text">
+      <h3>Sourcecode</h3>
+      <p>Github: <a href="http://github.com/BlueTeck/kanboard_angular" target="_blank">BlueTeck/kanboard_angular</a></p>
+    </div>    
+  </md-list-item>
   <md-list>

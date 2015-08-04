@@ -1,0 +1,20 @@
+{
+    "projects": "Projects",
+    "search": "Search",
+    "projectlist": "Projectlist",
+    "settings": "Settings",
+    "endpoints": "Endpoints",
+    "add": "add",
+    "name": "Name",
+    "url": "URL",
+    "token": "Token",
+    "save": "Save",
+    "cancel": "Cancel",
+    "no_task_in_column": "No tasks in column:",
+    "back": "back",
+    "cant_access_api": "Can't access projects",
+    "add endpoint": "add endpoint",
+    "edit endpoint": "edit endpoint",
+    "no_overdue_in": "no overdue tasks in",
+    "overdue_in": "Overdue in"
+}
