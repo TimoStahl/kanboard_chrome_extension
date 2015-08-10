@@ -67,3 +67,28 @@ md-chips .md-chips {
 .md-button {
     margin: 2px;
 }
+
+div.md-list-item-text a {
+    text-decoration: none;
+    color: black;
+}
+
+md-card md-card-content {
+    padding: 2px;
+    border-left-color: rgb(205, 133, 254);
+    border-left-width: 15px;
+}
+
+md-card-content h3.md-title{
+    margin: 5px;
+}
+md-card-content p {
+    margin: 5px;
+    margin-left: 10px;
+    color: grey;
+}
+md-toolbar {
+    min-height: 0px;
+}
+
+

@@ -10,16 +10,16 @@
 <md-list>
   <md-subheader class="md-no-sticky" ng-repeat-start="ep in endpoints track by $index">{{ep.name}}</md-subheader>
   <div ng-hide="ep.projects.length > 0" class="warning">{{ 'cant_access_api' | translate }}</div>
-  <md-list-item ng-repeat-end class="md-3-line" ng-repeat="project in ep.projects | filter:projectList.search | orderBy:'name'">
+  <md-list-item ng-repeat-end class="md-2-line" ng-repeat="project in ep.projects | filter:projectList.search | orderBy:'name'">
     <!--<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />-->
-    <ng-md-icon icon="view_module" class="md-avatar"></ng-md-icon>
-    <div class="md-list-item-text">
-      <h3><a ng-href="#/{{ep.id}}/board/show/{{project.id}}">{{project.name}}</a></h3>
+    <ng-md-icon ng-click="$navigation.board(ep.id,project.id)" icon="view_module" class="md-avatar"></ng-md-icon>
+    <div class="md-list-item-text" ng-click="$navigation.board(ep.id,project.id)">
+      <h3>{{project.name}}</h3>
       <p>{{project.description}}</p>
     </div>
-    <md-button class="md-fab  md-mini md-primary" ng-href="#/{{ep.id}}/board/show/{{project.id}}">
+    <!--<md-button class="md-fab  md-mini md-primary" ng-href="#/{{ep.id}}/board/show/{{project.id}}">
       <ng-md-icon icon="explore"></ng-md-icon>
-    </md-button>
+    </md-button>-->
     <md-button class="md-fab  md-mini md-primary" ng-href="#/{{ep.id}}/board/overdue/{{project.id}}">
       <ng-md-icon icon="alarm"></ng-md-icon>
     </md-button>

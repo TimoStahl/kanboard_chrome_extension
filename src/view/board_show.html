@@ -4,7 +4,7 @@
 
 <div>
   <md-content class="md-padding" md-swipe-left="nextColumn()" md-swipe-right="previousColumn()">
-    <md-tabs md-dynamic-height md-selected="selectedIndex">
+    <md-tabs md-dynamic-height md-selected="selectedIndex" md-no-pagination="false">
 
       <md-tab ng-repeat="column in columns" label="{{column.title}}">
 
@@ -23,6 +23,4 @@
   </md-content>
 </div>
 
-<a href="#/">
-  <md-button>{{ 'back' | translate }}</md-button>
-</a>
+<md-button ng-click="$navigation.home()">{{ 'back' | translate }}</md-button>
