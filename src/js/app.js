@@ -1,29 +1,29 @@
 angular.module('Kanboard')
 
-  .config(function($compileProvider) {
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|chrome-extension):/);
-  })
-  
-  .config(function($translateProvider) {
+.config(function($compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|chrome-extension):/);
+})
 
-    $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
-        'en_US': 'en',
-        'en_UK': 'en',
-        'de_DE': 'de',
-        'de_CH': 'de',
-        'de_AT': 'de'
-      })
-      .determinePreferredLanguage()
-      .fallbackLanguage('en')
-      .useStaticFilesLoader({
-        prefix: 'translation/',
-        suffix: '.json'
-      });
-  })
-  
-  .config(function($routeProvider) {
+.config(function($translateProvider) {
+
+  $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
+      'en_US': 'en',
+      'en_UK': 'en',
+      'de_DE': 'de',
+      'de_CH': 'de',
+      'de_AT': 'de'
+    })
+    .determinePreferredLanguage()
+    .fallbackLanguage('en')
+    .useStaticFilesLoader({
+      prefix: 'translation/',
+      suffix: '.json'
+    });
+})
+
+.config(function($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/projectlist', {
         controller: 'ProjectListController',
         templateUrl: 'view/project_list.html'
       })
@@ -43,6 +43,10 @@ angular.module('Kanboard')
         controller: 'ShowProjectController',
         templateUrl: 'view/board_show.html'
       })
+      .when('/:api_id/board/show/:projectId/:columnId', {
+        controller: 'ShowProjectController',
+        templateUrl: 'view/board_show.html'
+      })
       .when('/:api_id/task/show/:taskId', {
         controller: 'ShowTaskController',
         templateUrl: 'view/task_details.html'
@@ -52,49 +56,77 @@ angular.module('Kanboard')
         templateUrl: 'view/board_overdue.html'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/projectlist'
       });
   })
-
-.factory('navigation', ['$location', function($location) {
-  return {
-    home: function() {
-      $location.path('/');
-      $location.replace();
-      console.log("Navigation: home");
-      return;
-    },
-    settings: function() {
-      $location.path('/settings');
-      $location.replace();
-      console.log("Navigation: settings");
-      return;
-    },
-    settings_endpoint: function(api_id) {
-      if (api_id >= 0) {
-        $location.path('/settings/endpoint/' + api_id);
+  .run(function($rootScope, $location, dataFactory, navigation) {
+    $rootScope.$watch(function() {
+        return $location.path();
+      },
+      function(a) {
+        // url changed
+        var settings = dataFactory.getSettings();
+        if (settings.rememberLastPage) {
+          if (a != '/lasturl') {
+            settings.lastVisitedUrl = a;
+            dataFactory.setSettings(settings);
+          } else {
+            navigation.url(settings.lastVisitedUrl);
+          }
+        }
+      });
+  })
+  .factory('navigation', ['$location', function($location) {
+    return {
+      home: function() {
+        $location.path('/projectlist');
+        $location.replace();
+        console.log("Navigation: home/projectlist");
+        return;
+      },
+      settings: function() {
+        $location.path('/settings');
+        $location.replace();
+        console.log("Navigation: settings");
+        return;
+      },
+      settings_endpoint: function(api_id) {
+        if (api_id >= 0) {
+          $location.path('/settings/endpoint/' + api_id);
+        }
+        else {
+          $location.path('/settings/endpoint');
+        }
+        $location.replace();
+        console.log("Navigation: settings_endpoint");
+        return;
+      },
+      task: function(api_id, task_id) {
+        $location.path('/' + api_id + '/task/show/' + task_id);
+        $location.replace();
+        console.log("Navigation: task");
+        return;
+      },
+      board: function(api_id, board_id, column_id) {
+        if(!column_id){
+            column_id = 0;
+        }
+        $location.path('/' + api_id + '/board/show/' + board_id + '/' + column_id);
+        $location.replace();
+        console.log("Navigation: board");
+        return;
+      },
+      url: function(url) {
+        $location.path(url);
+        $location.replace();
+        console.log("Navigation: url => " + url);
+        return;
+      },
+      back: function(){
+          window.history.back();
       }
-      else {
-        $location.path('/settings/endpoint');
-      }
-      $location.replace();
-      console.log("Navigation: settings_endpoint");
-      return;
-    },
-    task: function(api_id, task_id) {
-      $location.path('/' + api_id + '/task/show/' + task_id);
-      $location.replace();
-      console.log("Navigation: task");
-      return;
-    },
-    board: function(api_id, board_id) {
-      $location.path('/' + api_id + '/board/show/' + board_id);
-      $location.replace();
-      console.log("Navigation: board");
-      return;
     }
-  }
-}])
+  }])
 
 .factory('dataFactory', ['$base64', '$http', function($base64, $http) {
 
@@ -123,6 +155,17 @@ angular.module('Kanboard')
 
   dataFactory.setEndpoints = function(endpoints) {
     return localStorage.setItem("endpoints", JSON.stringify(endpoints));
+  };
+
+  dataFactory.getSettings = function() {
+    var settings = {};
+    settings = localStorage.getItem("settings");
+    settings = JSON.parse(settings);
+    return settings;
+  };
+
+  dataFactory.setSettings = function(settings) {
+    return localStorage.setItem("settings", JSON.stringify(settings));
   };
 
   dataFactory.getBaseUrl = function(api_id) {

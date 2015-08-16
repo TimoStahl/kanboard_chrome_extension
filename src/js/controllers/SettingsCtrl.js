@@ -4,6 +4,13 @@ angular.module('KanboardCtrl')
 
     var items = dataFactory.getEndpoints();
     $scope.endpoints = items;
+    
+    var settings = dataFactory.getSettings();
+    $scope.settings = settings;
+    
+    $scope.saveSettings = function(){
+      dataFactory.setSettings($scope.settings);
+    };
 
     $scope.showDeleteConfirm = function(ev, endpoint) {
       var confirm = $mdDialog.confirm()

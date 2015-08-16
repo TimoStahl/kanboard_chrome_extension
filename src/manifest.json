@@ -2,12 +2,12 @@
     "manifest_version": 2,
     "name": "__MSG_chrome_extension_name__",
     "description": "__MSG_chrome_extension_description__",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Timo Litzbarski",
     "default_locale": "en",
     "browser_action": {
         "default_icon": "icons/icon_48.png",
-        "default_popup": "index.html",
+        "default_popup": "index.html#/lasturl",
         "default_title": "__MSG_browser_action_title__"
     },
     "permissions": [

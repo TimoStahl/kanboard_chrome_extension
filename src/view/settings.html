@@ -2,14 +2,13 @@
   <h1 class="md-title">{{ 'settings' | translate }}</h1>
   <span flex></span>
   <md-button class="" ng-click="$navigation.settings_endpoint(-1)">
-      <ng-md-icon icon="add_circle"></ng-md-icon> {{ 'add' | translate }}
-    </md-button>
+    <ng-md-icon icon="add_circle"></ng-md-icon> {{ 'add' | translate }}
+  </md-button>
 </md-toolbar>
 
 <md-list>
+  <!-- Endpoints -->
   <md-subheader class="md-no-sticky">{{ 'endpoints' | translate }}</md-subheader>
-
-
   <md-list-item class="md-3-line" ng-repeat="endpoint in endpoints">
     <ng-md-icon icon="settings_remote" class="md-avatar"></ng-md-icon>
     <div class="md-list-item-text">
@@ -23,14 +22,24 @@
       <ng-md-icon icon="delete"></ng-md-icon>
     </md-button>
   </md-list-item>
-
-
   <md-divider></md-divider>
+
+  <!-- Application Settings -->
+  <md-subheader class="md-no-sticky">{{ 'Application Settings' | translate }}</md-subheader>
+  <md-list-item>
+    <md-switch class="md-primary" ng-model="settings.rememberLastPage" ng-change="saveSettings()">
+      {{ 'Remember last page on close and reopen on startup.' | translate }}
+    </md-switch>
+  </md-list-item>
+  <md-divider></md-divider>
+
+  <!-- Credits -->
+  <md-subheader class="md-no-sticky">{{ 'Credits' | translate }}</md-subheader>
   <md-list-item class="md-3-line">
     <ng-md-icon icon="github-circle" class="md-avatar"></ng-md-icon>
     <div class="md-list-item-text">
       <h3>Sourcecode</h3>
       <p>Github: <a href="http://github.com/BlueTeck/kanboard_angular" target="_blank">BlueTeck/kanboard_angular</a></p>
-    </div>    
+    </div>
   </md-list-item>
   <md-list>

@@ -2,7 +2,7 @@ angular.module('KanboardCtrl')
 .controller('ShowProjectController', function($routeParams, $scope, navigation, dataFactory) {
     $scope.$navigation = navigation;
     $scope.project_id = $routeParams.projectId;
-    $scope.selectedIndex = 1;
+    $scope.selectedIndex = 0;
     var numberOfColumns;
 
     var api_id = parseInt($routeParams.api_id) + 1;
@@ -15,6 +15,9 @@ angular.module('KanboardCtrl')
       .success(function(request) {
         project = request.result;
         $scope.project_name = project.name;
+        if($routeParams.columnId > 0){
+            $scope.selectedIndex = $routeParams.columnId;
+        }
       })
       .error(function(error) {
         console.log(error);
@@ -42,5 +45,11 @@ angular.module('KanboardCtrl')
         $scope.selectedIndex--;
       }
     }
+    
+    $scope.$watch('selectedIndex', function(current, old) {
+        if(current != old){
+            navigation.board($routeParams.api_id,$routeParams.projectId,current);
+        }
+    });
 
   });
