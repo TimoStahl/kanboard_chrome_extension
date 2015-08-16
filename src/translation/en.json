@@ -16,6 +16,7 @@
     "add endpoint": "add endpoint",
     "edit endpoint": "edit endpoint",
     "no_overdue_in": "no overdue tasks in",
-    "overdue_in": "Overdue in",
+    "overdue": "Overdue",
+    "activities": "Activities",
     "Remember last page on close and reopen on startup.": "Remember last page on close and reopen on startup."
 }

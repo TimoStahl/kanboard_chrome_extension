@@ -1,5 +1,10 @@
-<md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
-  <h1 class="md-title">{{project_name}}</h1>
+<md-toolbar layout="row">
+    <span ng-include="'view/menu.html'"></span>
+    <h1 class="md-title">{{project.name}}</h1>
+    <span flex></span>    
+    <ng-md-icon icon="alarm" ng-click="$navigation.board_overdue(api_id,project.id)"></ng-md-icon>
+    <ng-md-icon icon="history" ng-click="$navigation.board_activity(api_id,project.id)"></ng-md-icon>
+    <ng-md-icon icon="open_in_browser" ng-click="$navigation.extern_url(project.url.board)"></ng-md-icon>
 </md-toolbar>
 
 <div>
@@ -23,4 +28,4 @@
   </md-content>
 </div>
 
-<md-button ng-click="$navigation.home()">{{ 'back' | translate }}</md-button>
+<md-button ng-click="$navigation.back()">{{ 'back' | translate }}</md-button>

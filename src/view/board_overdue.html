@@ -1,5 +1,9 @@
 <md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
-    <h1 class="md-title">{{ 'overdue_in' | translate }} {{project_name}}</h1>
+    <h1 class="md-title">{{ 'overdue' | translate }}: {{project.name}}</h1>
+    <span flex></span>    
+    <ng-md-icon icon="history" ng-click="$navigation.board_activity(api_id,project.id)"></ng-md-icon>
+    <ng-md-icon icon="explore" ng-click="$navigation.board(api_id,project.id)"></ng-md-icon>
+    <ng-md-icon icon="open_in_browser" ng-click="$navigation.extern_url(project.url.board)"></ng-md-icon>
 </md-toolbar>
 <div>
     <div ng-hide="tasks.length > 0" class="info">
@@ -9,4 +13,4 @@
     <span ng-repeat="task in tasks" ng-include="'view/task_box.html'">
   </div>
 
-<md-button ng-click="$navigation.home()">{{ 'back' | translate }}</md-button>
+<md-button ng-click="$navigation.back()">{{ 'back' | translate }}</md-button>

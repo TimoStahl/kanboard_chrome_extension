@@ -24,8 +24,7 @@ angular.module('KanboardCtrl')
 
     dataFactory.getProjectById(api_id, project_id)
       .success(function(request) {
-        var project = request.result;
-        $scope.project_name = project.name;
+        $scope.project = request.result;
       })
       .error(function(error) {
         console.log(error);

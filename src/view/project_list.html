@@ -20,16 +20,14 @@
     <!--<md-button class="md-fab  md-mini md-primary" ng-href="#/{{ep.id}}/board/show/{{project.id}}">
       <ng-md-icon icon="explore"></ng-md-icon>
     </md-button>-->
-    <md-button class="md-fab  md-mini md-primary" ng-href="#/{{ep.id}}/board/overdue/{{project.id}}">
+    <md-button class="md-fab  md-mini md-primary" ng-click="$navigation.board_overdue(ep.id,project.id)">
       <ng-md-icon icon="alarm"></ng-md-icon>
     </md-button>
-    <md-button class="md-fab  md-mini md-primary" ng-href="{{project.url.board}}" target="_blank">
-      <ng-md-icon icon="open_in_browser"></ng-md-icon>
-    </md-button>
-    
-    
-    <!--<md-button class="md-fab  md-mini" ng-href="#/{{ep.id}}/board/activity/{{project.id}}">
+    <md-button class="md-fab  md-mini md-primary" ng-click="$navigation.board_activity(ep.id,project.id)">
       <ng-md-icon icon="history"></ng-md-icon>
-    </md-button>-->
+    </md-button>
+    <md-button class="md-fab  md-mini md-primary" ng-click="$navigation.extern_url(project.url.board)">
+      <ng-md-icon icon="open_in_browser"></ng-md-icon>
+    </md-button>    
   </md-list-item>
   <md-list>

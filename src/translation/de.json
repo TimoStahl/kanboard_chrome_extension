@@ -16,6 +16,7 @@
     "add endpoint": "Endpunkt hinzufügen",
     "edit endpoint": "Endpunkt bearbeiten",
     "no_overdue_in": "Keine überfälligen Aufgaben in",
-    "overdue_in": "Überfällige Aufgaben in",
+    "overdue": "Überfällig",
+    "activities": "Aktivitäten",
     "Remember last page on close and reopen on startup.": "Bei Start der App, die zuletzt besuchte Seite laden."
 }
