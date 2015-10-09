@@ -1,3 +1,11 @@
+
+Please report issues, problems and wishes in
+
+https://github.com/BlueTeck/kanboard_angular
+
+---
+
+
 Kanboard:
 
 http://kanboard.net/
