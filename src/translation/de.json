@@ -7,7 +7,7 @@
     "add": "hinzufügen",
     "name": "Name",
     "url": "URL",
-    "token": "Token",
+    "token": "Passwort/Token",
     "save": "Speichern",
     "cancel": "Abbrechen",
     "no_task_in_column": "Keine Aufgaben in Spalte:",
@@ -18,5 +18,6 @@
     "no_overdue_in": "Keine überfälligen Aufgaben in",
     "overdue": "Überfällig",
     "activities": "Aktivitäten",
-    "Remember last page on close and reopen on startup.": "Bei Start der App, die zuletzt besuchte Seite laden."
+    "Remember last page on close and reopen on startup.": "Bei Start der App, die zuletzt besuchte Seite laden.",
+    "user": "Benutzer"
 }

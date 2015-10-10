@@ -64,95 +64,113 @@ angular.module('Kanboard')
       });
   })
   .run(function($rootScope, $location, $route, dataFactory, navigation) {
+
+    //check if settings are availiable
+    var settings = dataFactory.getSettings();
+    if (settings === null) {
+      //create settings in local storage
+      settings = new Object();
+    }
+    if (!("rememberLastPage" in settings)) {
+      //rememberLastPage missing
+      settings.rememberLastPage = false;
+    }
+    dataFactory.setSettings(settings);
+
     $rootScope.$watch(function() {
         return $location.path();
       },
       function(a) {
         // url changed
-        var settings = dataFactory.getSettings();
-        if (a != '/lasturl') {
-            settings.lastVisitedUrl = settings.currentUrl;
-            settings.currentUrl = a;
-            dataFactory.setSettings(settings);
-        } else {
-            if (settings.rememberLastPage) {
-                navigation.url(settings.currentUrl);
-            }          
+        if (a === '/lasturl' && settings.rememberLastPage) {
+          navigation.back();
         }
       });
+
     //fix https://github.com/angular/angular.js/issues/1699  
     var original = $location.path;
-        $location.path = function (path, reload) {
-            if (reload === false) {
-                var lastRoute = $route.current;
-                var un = $rootScope.$on('$locationChangeSuccess', function () {
-                    $route.current = lastRoute;
-                    un();
-                });
-            }
+    $location.path = function(path, reload) {
+      if (reload === false) {
+        var lastRoute = $route.current;
+        var un = $rootScope.$on('$locationChangeSuccess', function() {
+          $route.current = lastRoute;
+          un();
+        });
+      }
 
-            return original.apply($location, [path]);
-        };  
+      return original.apply($location, [path]);
+    };
   })
   .factory('navigation', ['$location', 'dataFactory', function($location, dataFactory) {
     return {
       home: function() {
         console.log("Navigation: home/projectlist");
-        $location.path('/projectlist').replace();        
+        this.go_with_history('/projectlist');
         return;
       },
       settings: function() {
         console.log("Navigation: settings");
-        $location.path('/settings').replace();
+        this.go_with_history('/settings');
         return;
       },
       settings_endpoint: function(api_id) {
         console.log("Navigation: settings_endpoint");
         if (api_id >= 0) {
-          $location.path('/settings/endpoint/' + api_id);
+          this.go_with_history('/settings/endpoint/' + api_id);
         }
         else {
-          $location.path('/settings/endpoint');
+          this.go_with_history('/settings/endpoint');
         }
-        $location.replace();        
         return;
       },
       task: function(api_id, task_id) {
         console.log("Navigation: task");
-        $location.path('/' + api_id + '/task/show/' + task_id).replace();       
+        this.go_with_history('/' + api_id + '/task/show/' + task_id);
         return;
       },
       board: function(api_id, board_id, column_id, reload) {
         console.log("Navigation: board");
-        if(!column_id){
-            column_id = 0;
+        if (!column_id) {
+          column_id = 0;
         }
-        $location.path('/' + api_id + '/board/show/' + board_id + '/' + column_id, reload).replace();        
+        this.go_with_history('/' + api_id + '/board/show/' + board_id + '/' + column_id, reload);
         return;
       },
       url: function(url) {
         console.log("Navigation: url => " + url);
-        $location.path(url).replace();        
+        this.go_with_history(url);
         return;
       },
-      extern_url: function(url) {        
+      extern_url: function(url) {
         console.log("Navigation: url => " + url);
-        window.open(url,"_blank")
+        window.open(url, "_blank");
         return;
       },
-      back: function(){
-          var settings = dataFactory.getSettings();       
-          this.url(settings.lastVisitedUrl);
-          //window.history.back();
+      back: function() {
+        var history = dataFactory.getHistory();
+        var url = $location.path();
+        while (url === $location.path()) {
+          url = history.pop();
+        }
+        dataFactory.setHistory(history);
+        $location.path(url).replace();
+        return;
       },
       board_activity: function(api_id, board_id) {
         console.log("Navigation: board activity");
-        $location.path('/' + api_id + '/board/activity/' + board_id).replace();
+        this.go_with_history('/' + api_id + '/board/activity/' + board_id);
         return;
       },
       board_overdue: function(api_id, board_id) {
         console.log("Navigation: board overdue");
-        $location.path('/' + api_id + '/board/overdue/' + board_id).replace();        
+        this.go_with_history('/' + api_id + '/board/overdue/' + board_id);
+        return;
+      },
+      go_with_history: function(url, reload) {
+        var history = dataFactory.getHistory();
+        history.push(url);
+        dataFactory.setHistory(history);
+        $location.path(url, reload).replace();
         return;
       }
     }
@@ -170,13 +188,17 @@ angular.module('Kanboard')
         "i": "0",
         "name": "Kanboard.net Demopage",
         "token": "da2776e2c7ca07b2b1169099550aa4a197024f2f7aac21212682240acc3f",
-        "url": "http://demo.kanboard.net/jsonrpc.php"
+        "url": "http://demo.kanboard.net/jsonrpc.php",
+        "user": "jsonrpc"
       }];
     }
     else {
       items = JSON.parse(items);
       for (var i = 0; i < items.length; i++) {
         items[i].id = i;
+        if (items[i].user === undefined || items[i].user == "") {
+          items[i].user = "jsonrpc";
+        }
       }
     }
 
@@ -198,6 +220,28 @@ angular.module('Kanboard')
     return localStorage.setItem("settings", JSON.stringify(settings));
   };
 
+  dataFactory.getHistory = function() {
+    var history = {};
+    history = localStorage.getItem("history");
+    if (history === null) {
+      history = new Array();
+    }
+    else {
+      history = JSON.parse(history);
+    }
+    if (history.length <= 1) {
+      history.push("/projectlist");
+    }
+    return history;
+  };
+
+  dataFactory.setHistory = function(history) {
+    while (history.length > 50) {
+      history.shift();
+    }
+    return localStorage.setItem("history", JSON.stringify(history));
+  };
+
   dataFactory.getBaseUrl = function(api_id) {
     var api_config = this.getEndpoints()[api_id - 1];
     return api_config.url;
@@ -205,7 +249,7 @@ angular.module('Kanboard')
 
   dataFactory.createConfig = function(api_id) {
     var api_config = this.getEndpoints()[api_id - 1];
-    var auth = $base64.encode('jsonrpc' + ':' + api_config.token);
+    var auth = $base64.encode(api_config.user + ':' + api_config.token);
     var config = {
       headers: {
         'Authorization': 'Basic ' + auth
@@ -215,7 +259,13 @@ angular.module('Kanboard')
   };
 
   dataFactory.getProjects = function(api_id) {
-    var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": ' + api_id + '}';
+    var api_config = this.getEndpoints()[api_id - 1];
+    if (api_config.user == 'jsonrpc') {
+      var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": ' + api_id + '}';
+    }
+    else {
+      var request = '{"jsonrpc": "2.0", "method": "getMyProjectsList", "id": ' + api_id + '}';
+    }
     return $http.post(this.getBaseUrl(api_id) + '?getAllProjects', request, this.createConfig(api_id));
   };
 
@@ -229,11 +279,6 @@ angular.module('Kanboard')
     return $http.post(this.getBaseUrl(api_id) + '?getProjectById', request, this.createConfig(api_id));
   };
 
-  dataFactory.getProjectActivity = function(api_id, projectid) {
-    var request = '{"jsonrpc": "2.0", "method": "getProjectActivity", "id": ' + api_id + ',"params": { "project_id": ' + projectid + ' }}';
-    return $http.post(this.getBaseUrl(api_id) + '?getProjectActivity', request, this.createConfig(api_id));
-  };
-
   dataFactory.getTaskById = function(api_id, taskid) {
     var request = '{"jsonrpc": "2.0", "method": "getTask", "id": ' + api_id + ',"params": { "task_id": ' + taskid + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getTask', request, this.createConfig(api_id));
@@ -243,7 +288,7 @@ angular.module('Kanboard')
     var request = '{"jsonrpc": "2.0", "method": "getOverdueTasks", "id": ' + api_id + '}';
     return $http.post(this.getBaseUrl(api_id) + '?getOverdueTasks', request, this.createConfig(api_id));
   };
-  
+
   dataFactory.getProjectActivity = function(api_id, project_id) {
     var request = '{"jsonrpc": "2.0", "method": "getProjectActivity", "id": ' + api_id + ',"params": { "project_id": ' + project_id + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getProjectActivity', request, this.createConfig(api_id));

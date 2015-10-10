@@ -15,8 +15,10 @@ angular.module('KanboardCtrl')
       .success(function(request) {
         project = request.result;
         $scope.project = project;
+        console.log("Before " + $scope.selectedIndex);
         if($routeParams.columnId > 0){
             $scope.selectedIndex = $routeParams.columnId;
+            console.log("In " + $scope.selectedIndex);
         }
       })
       .error(function(error) {

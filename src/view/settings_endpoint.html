@@ -15,6 +15,10 @@
   <input type="url" ng-model="endpoint.url" required>
 </md-input-container>
 <md-input-container flex>
+  <label>{{ 'user' | translate }}</label>
+  <input ng-model="endpoint.user" readonly required>
+</md-input-container>
+<md-input-container flex>
   <label>{{ 'token' | translate }}</label>
   <input ng-model="endpoint.token" required>
 </md-input-container>
