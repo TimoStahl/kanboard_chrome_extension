@@ -15,7 +15,7 @@
     "cant_access_api": "Can't access projects",
     "add endpoint": "add endpoint",
     "edit endpoint": "edit endpoint",
-    "no_overdue_in": "no overdue tasks in",
+    "no_overdue": "no overdue tasks",
     "overdue": "Overdue",
     "activities": "Activities",
     "Remember last page on close and reopen on startup.": "Remember last page on close and reopen on startup.",

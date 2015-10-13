@@ -1,24 +1,23 @@
-<md-button class="md-icon-button" ng-click="$navigation.back()">
-  <ng-md-icon icon="undo"></ng-md-icon> 
+<md-button aria-label="{{ 'back' | translate }}" class="md-icon-button" ng-click="$navigation.back()">
+  <ng-md-icon icon="undo"></ng-md-icon>
 </md-button>
+
 <md-menu>
-      <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-        <ng-md-icon icon="menu"></ng-md-icon> 
+  <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+    <ng-md-icon icon="menu"></ng-md-icon>
+  </md-button>
+  <md-menu-content>
+    <md-menu-item>
+      <md-button ng-click="$navigation.home()">
+        <ng-md-icon icon="list"></ng-md-icon>
+        {{ 'projectlist' | translate }}
       </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="$navigation.home()">
-            <ng-md-icon icon="list"></ng-md-icon>
-            {{ 'projectlist' | translate }}
-          </md-button>
-          </a>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="$navigation.settings()">
-            <ng-md-icon icon="settings"></ng-md-icon>
-            {{ 'settings' | translate }}
-          </md-button>
-          </a>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+    </md-menu-item>
+    <md-menu-item>
+      <md-button ng-click="$navigation.settings()">
+        <ng-md-icon icon="settings"></ng-md-icon>
+        {{ 'settings' | translate }}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

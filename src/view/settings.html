@@ -1,7 +1,7 @@
 <md-toolbar layout="row"><span ng-include="'view/menu.html'"></span>
   <h1 class="md-title">{{ 'settings' | translate }}</h1>
   <span flex></span>
-  <md-button class="" ng-click="$navigation.settings_endpoint(-1)">
+  <md-button aria-label="{{ 'add' | translate }}" ng-click="$navigation.settings_endpoint(-1)">
     <ng-md-icon icon="add_circle"></ng-md-icon> {{ 'add' | translate }}
   </md-button>
 </md-toolbar>
@@ -15,10 +15,10 @@
       <h3>{{endpoint.name}}</h3>
       <p>{{endpoint.url}}</p>
     </div>
-    <md-button class="md-fab md-mini md-primary" ng-click="$navigation.settings_endpoint(endpoint.id)">
+    <md-button class="md-fab md-mini md-primary" aria-label="{{ 'edit' | translate }}" ng-click="$navigation.settings_endpoint(endpoint.id)">
       <ng-md-icon icon="mode_edit"></ng-md-icon>
     </md-button>
-    <md-button class="md-fab md-mini md-primary" ng-click="showDeleteConfirm($event,endpoint)">
+    <md-button class="md-fab md-mini md-primary" aria-label="{{ 'delete' | translate }}" ng-click="showDeleteConfirm($event,endpoint)">
       <ng-md-icon icon="delete"></ng-md-icon>
     </md-button>
   </md-list-item>

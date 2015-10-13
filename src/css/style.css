@@ -1,5 +1,5 @@
-/* Chrome Extension*/
-body {
+/* Chrome Extension */
+body, html {
     min-width:600px;
 }
 
@@ -99,5 +99,3 @@ md-toolbar {
     line-height: 1.6em;
     color: rgba(0,0,0,0.54);
 }
-
-

@@ -12,11 +12,8 @@ angular.module('KanboardCtrl')
       $scope.endpoint = new Object();
       $scope.edit = false;
     }
-    
-    $scope.endpoint.user = "jsonrpc";
 
     $scope.save = function() {
-      $scope.endpoint.user = "jsonrpc";
       if ($scope.endpoint.id >= 0) {
         items = dataFactory.getEndpoints();
         items[$scope.endpoint.id] = $scope.endpoint;

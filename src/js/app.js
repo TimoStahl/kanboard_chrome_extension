@@ -15,6 +15,7 @@ angular.module('Kanboard')
     })
     .determinePreferredLanguage()
     .fallbackLanguage('en')
+    .useSanitizeValueStrategy('escape')
     .useStaticFilesLoader({
       prefix: 'translation/',
       suffix: '.json'
@@ -179,6 +180,7 @@ angular.module('Kanboard')
 .factory('dataFactory', ['$base64', '$http', function($base64, $http) {
 
   var dataFactory = {};
+  var request;
 
   dataFactory.getEndpoints = function() {
     var items = localStorage.getItem("endpoints");
@@ -261,36 +263,42 @@ angular.module('Kanboard')
   dataFactory.getProjects = function(api_id) {
     var api_config = this.getEndpoints()[api_id - 1];
     if (api_config.user == 'jsonrpc') {
-      var request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": ' + api_id + '}';
+      request = '{"jsonrpc": "2.0", "method": "getAllProjects", "id": ' + api_id + '}';
     }
     else {
-      var request = '{"jsonrpc": "2.0", "method": "getMyProjectsList", "id": ' + api_id + '}';
+      request = '{"jsonrpc": "2.0", "method": "getMyProjects", "id": ' + api_id + '}';
     }
     return $http.post(this.getBaseUrl(api_id) + '?getAllProjects', request, this.createConfig(api_id));
   };
 
   dataFactory.getBoard = function(api_id, projectid) {
-    var request = '{"jsonrpc": "2.0", "method": "getBoard", "id": ' + api_id + ',"params": { "project_id": ' + projectid + ' }}';
+    request = '{"jsonrpc": "2.0", "method": "getBoard", "id": ' + api_id + ',"params": { "project_id": ' + projectid + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getBoard', request, this.createConfig(api_id));
   };
 
   dataFactory.getProjectById = function(api_id, projectid) {
-    var request = '{"jsonrpc": "2.0", "method": "getProjectById", "id": ' + api_id + ',"params": { "project_id": ' + projectid + ' }}';
+    request = '{"jsonrpc": "2.0", "method": "getProjectById", "id": ' + api_id + ',"params": { "project_id": ' + projectid + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getProjectById', request, this.createConfig(api_id));
   };
 
   dataFactory.getTaskById = function(api_id, taskid) {
-    var request = '{"jsonrpc": "2.0", "method": "getTask", "id": ' + api_id + ',"params": { "task_id": ' + taskid + ' }}';
+    request = '{"jsonrpc": "2.0", "method": "getTask", "id": ' + api_id + ',"params": { "task_id": ' + taskid + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getTask', request, this.createConfig(api_id));
   };
 
   dataFactory.getOverdueTasks = function(api_id) {
-    var request = '{"jsonrpc": "2.0", "method": "getOverdueTasks", "id": ' + api_id + '}';
+    var api_config = this.getEndpoints()[api_id - 1];
+    if (api_config.user == 'jsonrpc') {
+      request = '{"jsonrpc": "2.0", "method": "getOverdueTasks", "id": ' + api_id + '}';
+    }
+    else {
+      request = '{"jsonrpc": "2.0", "method": "getMyOverdueTasks", "id": ' + api_id + '}';
+    }
     return $http.post(this.getBaseUrl(api_id) + '?getOverdueTasks', request, this.createConfig(api_id));
   };
 
   dataFactory.getProjectActivity = function(api_id, project_id) {
-    var request = '{"jsonrpc": "2.0", "method": "getProjectActivity", "id": ' + api_id + ',"params": { "project_id": ' + project_id + ' }}';
+    request = '{"jsonrpc": "2.0", "method": "getProjectActivity", "id": ' + api_id + ',"params": { "project_id": ' + project_id + ' }}';
     return $http.post(this.getBaseUrl(api_id) + '?getProjectActivity', request, this.createConfig(api_id));
   };
 

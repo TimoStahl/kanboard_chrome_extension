@@ -3,7 +3,7 @@
     <h1 class="md-title">{{ 'activities' | translate }}: {{project.name}}</h1>
     <span flex></span>    
     <ng-md-icon icon="alarm" ng-click="$navigation.board_overdue(api_id,project.id)"></ng-md-icon>
-    <ng-md-icon icon="explore" ng-click="$navigation.board(api_id,project.id)"></ng-md-icon>
+    <ng-md-icon icon="view_module" ng-click="$navigation.board(api_id,project.id)"></ng-md-icon>
     <ng-md-icon icon="open_in_browser" ng-click="$navigation.extern_url(project.url.board)"></ng-md-icon>
 </md-toolbar>
 
