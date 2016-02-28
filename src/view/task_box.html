@@ -1,6 +1,12 @@
 <md-card>
   <md-card-content ><!--ng-click="$navigation.task(api_id,task.id)">-->
-    <h3 class="md-title"><span class="task_id">#{{task.id}}</span> <span class="task_title">{{task.title}}</span></h3>
+  
+   <md-card-title>
+          <md-card-title-text>
+            <span class="md-subhead"><span class="task_id">#{{task.id}}</span> <span class="task_title">{{task.title}}</span></span>
+          </md-card-title-text>
+        </md-card-title>
+    
     <p>
       {{task.description}}
     </p>

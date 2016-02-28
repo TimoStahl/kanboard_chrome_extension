@@ -29,8 +29,34 @@ angular.module('KanboardCtrl')
       .success(function(request) {
         $scope.board = request.result;
         board = request.result;
-        $scope.columns = board[0].columns;
         numberOfColumns = board[0].columns.length;
+        $scope.columns = new Array();
+        
+        //loop columns and put into scope
+        for(var icol = 0; icol < board[0].columns.length; icol++){
+          
+          var column = new Object;
+          column.title = board[0].columns[icol].title;
+          column.swimlanes = new Array();
+          
+          //loop at swimlanes
+          for(var iswim = 0; iswim < board.length; iswim++){
+            
+            var swimlane = new Object;
+            swimlane.name = board[iswim].name;
+            swimlane.tasks = new Array();
+            
+            //loop at tasks
+            for(var itask = 0; itask < board[iswim].columns[icol].tasks.length; itask++){
+                  swimlane.tasks.push(board[iswim].columns[icol].tasks[itask]);
+            }
+            
+            column.swimlanes.push(swimlane);
+          }
+          $scope.columns.push(column);
+        }
+        
+        //console.log($scope.columns);
       })
       .error(function(error) {
         console.log(error);

@@ -6,23 +6,22 @@
 </md-toolbar>
 
 <form name="epform">
-<md-input-container flex>
+<md-input-container class="md-block">
   <label>{{ 'name' | translate }}</label>
   <input ng-model="endpoint.name" required>
 </md-input-container>
-<md-input-container flex>
+<md-input-container  class="md-block">
   <label>{{ 'url' | translate }}</label>
   <input type="url" ng-model="endpoint.url" required>
 </md-input-container>
-<md-input-container flex>
+<md-input-container  class="md-block">
   <label>{{ 'user' | translate }}</label>
   <input ng-model="endpoint.user" required>
 </md-input-container>
-<md-input-container flex>
+<md-input-container class="md-block">
   <label>{{ 'token' | translate }}</label>
-  <input ng-model="endpoint.token" required>
+  <input type="password" ng-model="endpoint.token">
 </md-input-container>
-
 
 <md-button ng-click="$navigation.settings()">{{ 'cancel' | translate }}</md-button>
 <md-button ng-disabled="epform.$invalid" class="md-raised" ng-click="save()">{{ 'save' | translate }}</md-button>

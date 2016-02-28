@@ -1,10 +1,10 @@
 <md-toolbar layout="row">
-    <span ng-include="'view/menu.html'"></span>
-    <h1 class="md-title">{{project.name}}</h1>
-    <span flex></span>    
-    <ng-md-icon icon="alarm" ng-click="$navigation.board_overdue(api_id,project.id)"></ng-md-icon>
-    <ng-md-icon icon="history" ng-click="$navigation.board_activity(api_id,project.id)"></ng-md-icon>
-    <ng-md-icon icon="open_in_browser" ng-click="$navigation.extern_url(project.url.board)"></ng-md-icon>
+  <span ng-include="'view/menu.html'"></span>
+  <h1 class="md-title">{{project.name}}</h1>
+  <span flex></span>
+  <ng-md-icon icon="alarm" ng-click="$navigation.board_overdue(api_id,project.id)"></ng-md-icon>
+  <ng-md-icon icon="history" ng-click="$navigation.board_activity(api_id,project.id)"></ng-md-icon>
+  <ng-md-icon icon="open_in_browser" ng-click="$navigation.extern_url(project.url.board)"></ng-md-icon>
 </md-toolbar>
 
 <div>
@@ -14,11 +14,20 @@
       <md-tab ng-repeat="column in columns" label="{{column.title}}">
 
         <md-content class="md-padding">
-          <div ng-hide="column.tasks.length > 0" class="warning">
-            {{ 'no_task_in_column' | translate }} "{{column.title}}"
-          </div>
-          <span ng-repeat="task in column.tasks" ng-include="'view/task_box.html'">
+        
 
+          <span ng-repeat="swimlane in column.swimlanes">
+            
+          <md-subheader class="md-warn">{{swimlane.name}}</md-subheader>            
+            
+          <div ng-hide="swimlane.tasks.length > 0" class="warning">
+            {{ 'no_task_in_swimlane' | translate }} "{{swimlane.name}}"
+          </div>
+          
+          <span ng-repeat="task in swimlane.tasks" ng-include="'view/task_box.html'">
+
+          </span>
+           
           </span>
         </md-content>
 

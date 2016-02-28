@@ -11,6 +11,7 @@
     "save": "Speichern",
     "cancel": "Abbrechen",
     "no_task_in_column": "Keine Aufgaben in Spalte:",
+    "no_task_in_swimlane": "Keine Aufgaben in Swimlane:",
     "back": "zurück",
     "cant_access_api": "kein Zugriff",
     "add endpoint": "Endpunkt hinzufügen",

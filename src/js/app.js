@@ -177,7 +177,7 @@ angular.module('Kanboard')
     }
   }])
 
-.factory('dataFactory', ['$base64', '$http', function($base64, $http) {
+.factory('dataFactory', ['$http', '$base64', function($http, $base64) {
 
   var dataFactory = {};
   var request;
@@ -186,13 +186,15 @@ angular.module('Kanboard')
     var items = localStorage.getItem("endpoints");
 
     if (items === null) {
-      items = [{
-        "i": "0",
-        "name": "Kanboard.net Demopage",
-        "token": "da2776e2c7ca07b2b1169099550aa4a197024f2f7aac21212682240acc3f",
-        "url": "http://demo.kanboard.net/jsonrpc.php",
-        "user": "jsonrpc"
-      }];
+      var item = new Object();
+      item.i = 0;
+      item.name = "Kanboard.net Demopage";
+      item.url = "http://demo.kanboard.net/jsonrpc.php";
+      item.user = "jsonrpc";
+      item.token = "da2776e2c7ca07b2b1169099550aa4a197024f2f7aac21212682240acc3f";
+      item.auth = $base64.encode(item.user + ':' + item.token);
+      items = new Array;
+      items.push(item);
     }
     else {
       items = JSON.parse(items);
@@ -251,10 +253,9 @@ angular.module('Kanboard')
 
   dataFactory.createConfig = function(api_id) {
     var api_config = this.getEndpoints()[api_id - 1];
-    var auth = $base64.encode(api_config.user + ':' + api_config.token);
     var config = {
       headers: {
-        'Authorization': 'Basic ' + auth
+        'Authorization': 'Basic ' + api_config.auth
       }
     };
     return config;

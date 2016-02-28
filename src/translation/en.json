@@ -11,6 +11,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "no_task_in_column": "No tasks in column:",
+    "no_task_in_swimlane": "No tasks in swimlane:",
     "back": "back",
     "cant_access_api": "Can't access projects",
     "add endpoint": "add endpoint",
