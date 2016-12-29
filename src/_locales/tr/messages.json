@@ -1,0 +1,25 @@
+{
+  "chrome_extension_name": {
+    "message": "Kanboard Hızlımenü"
+  },
+	"chrome_extension_description": {
+	  "message": "Kanboard projelerine daha hızlı erişmek için küçük bir uzantı"
+  },
+	"browser_action_title": {
+	  "message": "Kanboard Hızlımenü"
+	},
+	"format_date": {
+            "message": "$month$/$day$/$year$",
+            "placeholders": {
+                "day": {
+                    "content": "$1"
+                },
+                "month": {
+                    "content": "$2"
+                },
+                "year": {
+                    "content": "$3"
+                }
+            }
+        }
+}
