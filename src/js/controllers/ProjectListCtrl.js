@@ -9,12 +9,12 @@ angular.module('KanboardCtrl')
     $scope.endpoints[i].id = i;
     var id = i + 1;
     var result;
-    dataFactory.getProjects(id)
-      .success(function(request) {
-        result = request.result;
-        $scope.endpoints[request.id - 1].projects = result;
-      })
-      .error(function(error) {
+    dataFactory.getProjects(id).then(
+      function(request) {
+        result = request.data.result;
+        $scope.endpoints[id-1].projects = result;        
+      },
+      function(error) {
         console.log(error);
       });
   }

@@ -9,24 +9,24 @@ angular.module('KanboardCtrl')
 
     $scope.tasks = [];
 
-    dataFactory.getOverdueTasks(api_id)
-      .success(function(request) {
-        overdue = request.result;
+    dataFactory.getOverdueTasks(api_id).then(
+      function(request) {
+        overdue = request.data.result;
         for (var i = 0; i < overdue.length; i++) {
           if (overdue[i].project_id == project_id) {
             $scope.tasks.push(overdue[i]);
           }
         }
-      })
-      .error(function(error) {
+      },
+      function(error) {
         console.log(error);
       });
 
-    dataFactory.getProjectById(api_id, project_id)
-      .success(function(request) {
-        $scope.project = request.result;
-      })
-      .error(function(error) {
+    dataFactory.getProjectById(api_id, project_id).then(
+      function(request) {
+        $scope.project = request.data.result;
+      },
+      function(error) {
         console.log(error);
       });
 

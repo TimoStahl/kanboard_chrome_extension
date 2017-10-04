@@ -11,54 +11,54 @@ angular.module('KanboardCtrl')
     var board;
     $scope.tasks = [];
 
-    dataFactory.getProjectById(api_id, $routeParams.projectId)
-      .success(function(request) {
-        project = request.result;
+    dataFactory.getProjectById(api_id, $routeParams.projectId).then(
+      function(request) {
+        project = request.data.result;
         $scope.project = project;
         console.log("Before " + $scope.selectedIndex);
         if($routeParams.columnId > 0){
             $scope.selectedIndex = $routeParams.columnId;
             console.log("In " + $scope.selectedIndex);
         }
-      })
-      .error(function(error) {
+      },
+      function(error) {
         console.log(error);
       });
 
-    dataFactory.getBoard(api_id, $routeParams.projectId)
-      .success(function(request) {
-        $scope.board = request.result;
-        board = request.result;
+    dataFactory.getBoard(api_id, $routeParams.projectId).then(
+      function(request) {
+        $scope.board = request.data.result;
+        board = request.data.result;
         numberOfColumns = board[0].columns.length;
         $scope.columns = new Array();
-        
+
         //loop columns and put into scope
         for(var icol = 0; icol < board[0].columns.length; icol++){
-          
+
           var column = new Object;
           column.title = board[0].columns[icol].title;
           column.swimlanes = new Array();
-          
+
           //loop at swimlanes
           for(var iswim = 0; iswim < board.length; iswim++){
-            
+
             var swimlane = new Object;
             swimlane.name = board[iswim].name;
             swimlane.tasks = new Array();
-            
+
             //loop at tasks
             for(var itask = 0; itask < board[iswim].columns[icol].tasks.length; itask++){
                   swimlane.tasks.push(board[iswim].columns[icol].tasks[itask]);
             }
-            
+
             column.swimlanes.push(swimlane);
           }
           $scope.columns.push(column);
         }
-        
+
         //console.log($scope.columns);
-      })
-      .error(function(error) {
+      },
+      function(error) {
         console.log(error);
       });
 
@@ -73,7 +73,7 @@ angular.module('KanboardCtrl')
         $scope.selectedIndex--;
       }
     }
-    
+
     $scope.$watch('selectedIndex', function(current, old) {
         if(current != old){
            navigation.board($routeParams.api_id,$routeParams.projectId,current,false);
